@@ -1,0 +1,26 @@
+/* styles.css */
+.square {
+    width: 30%;
+    padding-bottom: 30%;
+    float: left;
+    margin: 1.66%;
+    background: purple;
+}
+
+#container {
+    clear: both;
+}
+
+#colorDisplay {
+    font-size: 2em;
+}
+
+#message {
+    font-size: 1.5em;
+}
+
+#resetButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1.2em;
+}

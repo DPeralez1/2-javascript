@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List App</title>
+    <style>
+        ul {
+            list-style-type: "\2610 ";
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Shopping List</h1>
+    <form id="myForm">
+        <label for="item">Add an item:</label>
+        <input id="item" type="text" name="item">
+        <button onclick="getItem()">Add</button>
+    </form>
+    <ul id="shoppingList">
+        <!-- list items will go into this ul via DOM manipulation -->
+    </ul>
+    <script>
+        // add your JavaScript code here
+        let itemList = [];
+        const shoppingList = document.getElementById("shoppingList");
+
+
+
+        function getItem() {
+            event.preventDefault();
+            const item = document.getElementById("item").value;
+
+            // Check if newItem already exists in the shopping list
+            if (!itemList.includes(item)) {
+                // Add newItem to the shopping list
+                itemList.push(item);
+                // Sort the shopping list alphabetically
+                itemList.sort();
+            }
+                makeList();
+
+                document.getElementById("myForm").reset();
+        }
+
+        function makeList() {
+            for (let item of itemsList) {
+                const listItem = document.createElement("li");
+                listItem.textContent = item;
+                shoppingList.appendChild(listItem);
+            }
+        }
+
+    </script>
+</body>
+</html>

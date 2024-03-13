@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <h1> 
+      <span style="background-color: white;"><font color="red">R</font><font color="green">G</font><font color="blue">B</font> Color Guessing Game</span>
+    </h1>
+  <style>
+    h1 {text-align: center;}
+
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    #container {
+      width: 400px;
+      margin: 0 auto;
+    }
+
+    input {
+      width: 50px;
+    }
+
+    button {
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="confetti"></div>
+  <div id="container">
+    <p><span style="background-color: white;">Guess the RGB values (0-255) of the background color:</span></p>
+    <p>
+      <span style="background-color: white;"><font color="red">R:</font></span> <input id="redInput" type="text"> <span id="redHint"></span>
+    </p>
+    <p>
+      <span style="background-color: white;"><font color="green">G:</font></span> <input id="greenInput" type="text"> <span id="greenHint"></span>
+    </p>
+    <p>
+      <span style="background-color: white;"><font color="blue">B:</font></span> <input id="blueInput" type="text"> <span id="blueHint"></span>
+    </p>
+    <p id="message"></p>
+    <button id="submit">Submit</button>
+    <button id="newColors">New Color</button>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <script>
+
+// Get the HTML elements
+let redInput = document.getElementById("redInput");
+let greenInput = document.getElementById("greenInput");
+let blueInput = document.getElementById("blueInput");
+let redHint = document.getElementById("redHint");
+let greenHint = document.getElementById("greenHint");
+let blueHint = document.getElementById("blueHint");
+let message = document.getElementById("message");
+let newColors = document.getElementById("newColors");
+let submit = document.getElementById("submit");
+
+// Generate a random color
+let red = Math.floor(Math.random() * 256);
+let green = Math.floor(Math.random() * 256);
+let blue = Math.floor(Math.random() * 256);
+let color = "rgb(" + red + ", " + green + ", " + blue + ")";
+
+// Display the color
+document.body.style.backgroundColor = color;
+
+// Check the user's input
+function checkInput() {
+  // Get the user's input
+  let redGuess = Number(redInput.value);
+  let greenGuess = Number(greenInput.value);
+  let blueGuess = Number(blueInput.value);
+
+  // Reset the hints and message
+  redHint.textContent = "";
+  greenHint.textContent = "";
+  blueHint.textContent = "";
+  message.textContent = "";
+
+  // Check if the input is valid
+  if (isNaN(redGuess) || isNaN(greenGuess) || isNaN(blueGuess)) {
+    message.textContent = "Please enter numbers between 0 and 255.";
+    return;
+  }
+  if (redGuess < 0 || redGuess > 255 || greenGuess < 0 || greenGuess > 255 || blueGuess < 0 || blueGuess > 255) {
+    message.textContent = "Please enter numbers between 0 and 255.";
+    return;
+  }
+
+  // Check if the input matches the color
+  if (redGuess === red && greenGuess === green && blueGuess === blue) {
+    message.textContent = "You got it! Well done!";
+
+    var duration = 15 * 1000;
+var animationEnd = Date.now() + duration;
+var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+function randomInRange(min, max) {
+  return Math.random() * (max - min) + min;
+}
+var confettiInterval;
+
+confettiInterval = setInterval(function() {
+  
+
+//var interval = setInterval(function() {
+  var timeLeft = animationEnd - Date.now();
+
+  if (timeLeft <= 0) {
+    return clearInterval(interval);
+  }
+
+  var particleCount = 50 * (timeLeft / duration);
+  // since particles fall down, start a bit higher than random
+  confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
+  confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
+}, 250);
+  }
+  // Give hints for each color component
+  if (redGuess < red) {
+    redHint.textContent = "Too low";
+  } else if (redGuess > red) {
+    redHint.textContent = "Too high";
+  } else {
+    redHint.textContent = "Correct";
+  }
+
+  if (greenGuess < green) {
+    greenHint.textContent = "Too low";
+  } else if (greenGuess > green) {
+    greenHint.textContent = "Too high";
+  } else {
+    greenHint.textContent = "Correct";
+  }
+
+  if (blueGuess < blue) {
+    blueHint.textContent = "Too low";
+  } else if (blueGuess > blue) {
+    blueHint.textContent = "Too high";
+  } else {
+    blueHint.textContent = "Correct";
+  }
+}
+
+// Generate a new color
+function newColor() {
+  // Generate a random color
+  red = Math.floor(Math.random() * 256);
+  green = Math.floor(Math.random() * 256);
+  blue = Math.floor(Math.random() * 256);
+  color = "rgb(" + red + ", " + green + ", " + blue + ")";
+  // Display the color
+  document.body.style.backgroundColor = color;
+  // Reset the input, hints, and message
+  redInput.value = "";
+  greenInput.value = "";
+  blueInput.value = "";
+  redHint.textContent = "";
+  greenHint.textContent = "";
+  blueHint.textContent = "";
+  message.textContent = "";
+
+
+}
+
+// Add event listeners
+submit.addEventListener("click", checkInput);
+newColors.addEventListener("click", newColor);
+  
+  </script>
+</body>
+</html>
+
